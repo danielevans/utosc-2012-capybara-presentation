@@ -11,8 +11,16 @@ include Capybara::DSL # adds the helpers
 
 visit 'wiki/Main_Page'
 
-puts "Visiting Main Page"
+fill_in "searchInput", :with => "capybara"
+
+click_button "searchButton"
 
 puts current_url
+
+if page.has_content?("Hydrochoerus hydrochaeris")
+  puts "the page has the rodent's scientific classification"
+else
+  throw "expectation failed: the page does not have the scientific classification of the capybara"
+end
 
 sleep 10
